@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Nạp các file CSS của Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <style>
+		.my-bg {
+			background-color: #f3d96f;
+		}
+	</style>
+</head>
+
+<body class="my-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 mt-4 p-5 rounded p5 bg-white">
+                <h2 class="text-center">Edit Student</h2>
+                <form th:object="${student}" th:action="@{/student/save/{id}(id=${student.id})}" th:method="PUT">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Name</label>&#160;
+                        <span th:if="${NullName == 'true'}" style="color:red">Name can not be null!</span>
+                        <input class="form-control" type="text" name="name" th:value="${student.name}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">DOB</label>&#160;
+                        <span th:if="${NullDOB == 'true'}" style="color:red">Null or Invalid DOB!</span>
+                        <input class="form-control" type="date" name="dob" th:value="${student.dob}">
+                    </div>
+                    <div th:if="${error == 'true'}">
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <div>
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                This user is already exist!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Major</label>&#160;
+                        <span th:if="${NullMajor == 'true'}" style="color:red">Major can not be null!</span>
+                        <input class="form-control" type="text" name="major" th:value="${student.major}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Vaccinated &#160;</label>
+                        <input type="checkbox" name="vaccinated" th:checked="${student.vaccinated}">
+                    </div>
+                    <input type="submit" value="Update Student" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Nạp các file JavaScript của Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
